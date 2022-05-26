@@ -1,5 +1,7 @@
 package dh
 
+import "context"
+
 //Meal represents a meal to include in dinner helper
 type Meal struct {
 	Name       string `json:"name" binding:"required"`
@@ -12,8 +14,8 @@ type Meal struct {
 }
 
 type MealService interface {
-	Save(m *Meal) (*Meal, error) //save a new meal
-	FindAll() ([]Meal, error)    //get all of the meals
-	RandMeal() (*Meal, error)    //get a random meal
+	CreateMeal(ctx context.Context, m *Meal) error //save a new meal
+	FindAll() ([]Meal, error)                      //get all of the meals
+	RandMeal() (*Meal, error)                      //get a random meal
 	//add UpdateMeal here at some point
 }
