@@ -40,7 +40,6 @@ func (*mealService) CreateMeal(ctx context.Context, m *dh.Meal) error {
 		"Notes":      m.Notes,
 		"Difficulty": m.Difficulty,
 		"Link":       m.Link,
-		"Prep":       m.Prep,
 		"Protein":    m.Protein,
 	})
 
@@ -54,13 +53,44 @@ func (*mealService) CreateMeal(ctx context.Context, m *dh.Meal) error {
 }
 
 func (*mealService) FindAll(ctx context.Context) ([]*dh.Meal, error) {
-	//add this
+	client, err := firestore.NewClient(ctx, projectID)
+
+	if err != nil {
+		log.Fatalf("Couldn't create firestore client: %v", err)
+	}
+
+	defer client.Close()
+
+	var meals []*dh.Meal
+
+	iter := client.Collection(mealCollection).Documents(ctx)
+
+	docs, err := iter.GetAll()
+
+	if err != nil {
+		log.Fatalf("Couldn't get meals from firestore: %v", err)
+	}
+
+	for _, doc := range docs {
+		m := &dh.Meal{
+			Name:       doc.Data()["Name"].(string),
+			Time:       doc.Data()["Time"].(int),
+			Notes:      doc.Data()["Notes"].(string),
+			Difficulty: doc.Data()["Difficulty"].(int),
+			Link:       doc.Data()["Link"].(string),
+			Protein:    doc.Data()["Protein"].(string),
+		}
+
+		meals = append(meals, m)
+	}
+
+	return meals, nil
 }
 
 func (*mealService) RandMeal(ctx context.Context) (*dh.Meal, error) {
-	//add this
+	//placeholder for now
+	return nil, nil
 }
 
 //TODO
-//set up GCP project
 //add methods to satisfy interface
