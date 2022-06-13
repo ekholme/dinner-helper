@@ -1,11 +1,11 @@
-package http
+package srvr
 
 import (
 	dh "github.com/ekholme/dinner-helper"
 	"github.com/gin-gonic/gin"
 )
 
-type Server struct {
+type Handler struct {
 	//the server instance to create, using gin
 	router *gin.Engine
 
@@ -14,10 +14,11 @@ type Server struct {
 	MealService dh.MealService
 }
 
-func NewServer() *Server {
-	s := &Server{
-		router: gin.Default(),
-	}
+//creates a new server
+func NewHandler() *Handler {
+	return &Handler{}
+}
 
-	return s
+func NewServer() *gin.Engine {
+	return gin.Default()
 }

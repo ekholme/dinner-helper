@@ -20,10 +20,6 @@ func NewMealService() *MealService {
 	return &MealService{}
 }
 
-func newContext() context.Context {
-	return context.Background()
-}
-
 func (*MealService) CreateMeal(ctx context.Context, m *dh.Meal) error {
 	client, err := firestore.NewClient(ctx, projectID)
 
