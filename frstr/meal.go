@@ -16,7 +16,7 @@ const (
 
 type MealService struct{}
 
-func NewMealService() dh.MealService {
+func NewMealService() *MealService {
 	return &MealService{}
 }
 
