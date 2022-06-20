@@ -19,10 +19,12 @@ func main() {
 	//this isn't currently working
 	r.POST("/meal", h.CreateMeal)
 
+	r.GET("/meal", h.FindAllMeals)
+
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"message": "pong"})
 	})
 
-	r.Run(":8080")
+	r.Run(":8000")
 
 }

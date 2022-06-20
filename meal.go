@@ -7,9 +7,9 @@ import (
 //Meal represents a meal to include in dinner helper
 type Meal struct {
 	Name       string `json:"name" binding:"required"`
-	Time       int    `json:"time"`
+	Time       int64  `json:"time"`
 	Notes      string `json:"notes"`
-	Difficulty int    `json:"difficulty" binding:"gte=1,lte=3"`
+	Difficulty int64  `json:"difficulty" binding:"gte=1,lte=3"`
 	Link       string `json:"link"`    //see if there's a url validator
 	Protein    string `json:"protein"` //represent the main protein in the meal
 }

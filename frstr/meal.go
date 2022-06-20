@@ -70,9 +70,9 @@ func (ms *mealService) FindAllMeals(ctx context.Context) ([]*dh.Meal, error) {
 	for _, doc := range docs {
 		m := &dh.Meal{
 			Name:       doc.Data()["Name"].(string),
-			Time:       doc.Data()["Time"].(int),
+			Time:       doc.Data()["Time"].(int64),
 			Notes:      doc.Data()["Notes"].(string),
-			Difficulty: doc.Data()["Difficulty"].(int),
+			Difficulty: doc.Data()["Difficulty"].(int64),
 			Link:       doc.Data()["Link"].(string),
 			Protein:    doc.Data()["Protein"].(string),
 		}
