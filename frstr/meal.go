@@ -14,13 +14,13 @@ const (
 	mealCollection = "meals"
 )
 
-type MealService struct{}
+type mealService struct{}
 
-func NewMealService() *MealService {
-	return &MealService{}
+func NewMealService() dh.MealService {
+	return &mealService{}
 }
 
-func (*MealService) CreateMeal(ctx context.Context, m *dh.Meal) error {
+func (ms *mealService) CreateMeal(ctx context.Context, m *dh.Meal) error {
 	client, err := firestore.NewClient(ctx, projectID)
 
 	if err != nil {
@@ -48,7 +48,7 @@ func (*MealService) CreateMeal(ctx context.Context, m *dh.Meal) error {
 
 }
 
-func (*MealService) FindAll(ctx context.Context) ([]*dh.Meal, error) {
+func (ms *mealService) FindAllMeals(ctx context.Context) ([]*dh.Meal, error) {
 	client, err := firestore.NewClient(ctx, projectID)
 
 	if err != nil {
@@ -83,7 +83,7 @@ func (*MealService) FindAll(ctx context.Context) ([]*dh.Meal, error) {
 	return meals, nil
 }
 
-func (*MealService) RandMeal(ctx context.Context) (*dh.Meal, error) {
+func (*mealService) GetRandMeal(ctx context.Context) (*dh.Meal, error) {
 	//placeholder for now
 	return nil, nil
 }
