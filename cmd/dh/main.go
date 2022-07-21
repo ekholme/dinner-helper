@@ -1,18 +1,19 @@
 package main
 
 import (
+	"github.com/ekholme/dinner-helper/frstr"
+	"github.com/ekholme/dinner-helper/srvr"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 func main() {
+	ms := frstr.NewMealService()
+	mh := srvr.NewMealHandler(ms)
 	r := gin.Default()
 
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-		})
-	})
+	r.GET("/meal", mh.GetAllMeals)
+	r.POST("/meal", mh.CreateMeal)
 
-	r.Run()
+	r.Run(":8080")
+
 }

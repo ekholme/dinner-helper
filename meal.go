@@ -16,7 +16,7 @@ type Meal struct {
 
 type MealService interface {
 	CreateMeal(ctx context.Context, m *Meal) error     //save a new meal
-	FindAllMeals(ctx context.Context) ([]*Meal, error) //get all of the meals
+	GetAllMeals(ctx context.Context) ([]*Meal, error) //get all of the meals
 	GetRandMeal(ctx context.Context) (*Meal, error)    //get a random meal
 	//add UpdateMeal here at some point
 }
