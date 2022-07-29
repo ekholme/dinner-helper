@@ -2,21 +2,13 @@ package srvr
 
 import "github.com/gin-gonic/gin"
 
-//TODO
-//create a server that holds handlers, routes, etc
-//see https://github.com/benbjohnson/wtf/blob/main/http/server.go
-
-//not sure why it's not recognizing the gin engine
-//see below
-//https://levelup.gitconnected.com/a-practical-approach-to-structuring-go-applications-7f77d7f9c189
-//try creating a Run() method that does a lot of the stuff I want to do when running
-//see the example above
+//server struct that holds the pieces we're using
 type Server struct {
 	router *gin.Engine
 	mh     MealHandler
 }
 
-//for some reason this isn't currently working for me
+//function to create a new server
 func NewServer(router *gin.Engine, mh MealHandler) *Server {
 
 	return &Server{
@@ -24,4 +16,12 @@ func NewServer(router *gin.Engine, mh MealHandler) *Server {
 		mh:     mh,
 	}
 
+}
+
+//method to run the server
+func (s *Server) Run() {
+	s.router.GET("/meal", s.mh.GetAllMeals)
+	s.router.POST("/meal", s.mh.CreateMeal)
+
+	s.router.Run(":8080")
 }

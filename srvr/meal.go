@@ -28,6 +28,16 @@ func NewMealHandler(ms dh.MealService) MealHandler {
 	}
 }
 
+//register meal routes
+func (s *Server) registerMealRoutes() {
+
+	//path to get all meals
+	s.router.GET("/meal", s.mh.GetAllMeals)
+
+	//path to create a new meal
+	s.router.POST("/meal", s.mh.CreateMeal)
+}
+
 //implement methods for mealHandler
 func (mh mealHandler) CreateMeal(c *gin.Context) {
 	ctx := context.Background()
@@ -63,7 +73,7 @@ func (mh mealHandler) GetAllMeals(c *gin.Context) {
 		"meals": meals,
 	}
 
-	c.JSON(http.StatusOK, data)
+	c.HTML(http.StatusOK, "all_meals", data)
 }
 
 func (mh mealHandler) GetRandMeal(c *gin.Context) {

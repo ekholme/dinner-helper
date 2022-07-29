@@ -6,14 +6,34 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+var r = gin.Default()
+
+func init() {
+	r.LoadHTMLGlob("srvr/html/templates/*.html")
+}
+
 func main() {
 	ms := frstr.NewMealService()
 	mh := srvr.NewMealHandler(ms)
-	r := gin.Default()
+	s := srvr.NewServer(r, mh)
 
-	r.GET("/meal", mh.GetAllMeals)
-	r.POST("/meal", mh.CreateMeal)
+	// type server struct {
+	// 	router *gin.Engine
+	// 	mh     srvr.MealHandler
+	// }
 
-	r.Run(":8080")
+	// var s = &server{
+	// 	router: r,
+	// 	mh:     mh,
+	// }
+
+	// s.router.GET("/meal", s.mh.GetAllMeals)
+
+	// r.GET("/meal", mh.GetAllMeals)
+	// r.POST("/meal", mh.CreateMeal)
+
+	// r.Run(":8080")
+
+	s.Run()
 
 }

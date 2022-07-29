@@ -1,3 +1,5 @@
+{{define "all_meals"}}
+
 {{template "header" .}}
 
 <div class="album py-4 bg-light">
@@ -11,8 +13,8 @@
                         <h3>{{.Name}}</h3>
                         <p>Time Reqd: {{.Time}}</p>
                         <p>Notes {{.Notes}}</p>
-                        <p>Difficulty (1-5): {{.Difficulty}</p>
-                        <p>Proten: {{.Protein}}</p>
+                        <p>Difficulty (1-5): {{.Difficulty}}</p>
+                        <p>**Protein**: {{.Protein}}</p>
                         </p>
                     </div>
                 </div>
@@ -22,3 +24,5 @@
     </div>
 
 {{template "footer"}}
+
+{{end}}
