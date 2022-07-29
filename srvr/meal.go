@@ -36,6 +36,10 @@ func (s *Server) registerMealRoutes() {
 
 	//path to create a new meal
 	s.router.POST("/meal", s.mh.CreateMeal)
+
+	//getting a random meal
+	//placeholder for now
+	s.router.GET("/rand_meal", s.mh.GetRandMeal)
 }
 
 //implement methods for mealHandler
@@ -77,5 +81,5 @@ func (mh mealHandler) GetAllMeals(c *gin.Context) {
 }
 
 func (mh mealHandler) GetRandMeal(c *gin.Context) {
-	//todo
+	c.HTML(http.StatusOK, "oops", gin.H{})
 }

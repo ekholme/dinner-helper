@@ -1,6 +1,10 @@
 package srvr
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 //server struct that holds the pieces we're using
 type Server struct {
@@ -18,10 +22,18 @@ func NewServer(router *gin.Engine, mh MealHandler) *Server {
 
 }
 
+//handle index
+//this may not be the best place to do this
+func (s *Server) handleIndex(c *gin.Context) {
+	c.HTML(http.StatusOK, "index", gin.H{})
+}
+
 //method to run the server
 func (s *Server) Run() {
-	s.router.GET("/meal", s.mh.GetAllMeals)
-	s.router.POST("/meal", s.mh.CreateMeal)
+	//register index
+	s.router.GET("/", s.handleIndex)
+
+	s.registerMealRoutes()
 
 	s.router.Run(":8080")
 }
