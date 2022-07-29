@@ -9,6 +9,8 @@ import "github.com/gin-gonic/gin"
 //not sure why it's not recognizing the gin engine
 //see below
 //https://levelup.gitconnected.com/a-practical-approach-to-structuring-go-applications-7f77d7f9c189
+//try creating a Run() method that does a lot of the stuff I want to do when running
+//see the example above
 type Server struct {
 	router *gin.Engine
 	mh     MealHandler
