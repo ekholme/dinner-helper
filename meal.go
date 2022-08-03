@@ -6,6 +6,7 @@ import (
 
 //Meal represents a meal to include in dinner helper
 type Meal struct {
+	ID         string `json:"id"`
 	Name       string `json:"name" binding:"required"`
 	Time       int64  `json:"time"`
 	Notes      string `json:"notes"`
@@ -15,8 +16,8 @@ type Meal struct {
 }
 
 type MealService interface {
-	CreateMeal(ctx context.Context, m *Meal) error     //save a new meal
+	CreateMeal(ctx context.Context, m *Meal) error    //save a new meal
 	GetAllMeals(ctx context.Context) ([]*Meal, error) //get all of the meals
-	GetRandMeal(ctx context.Context) (*Meal, error)    //get a random meal
+	GetRandMeal(ctx context.Context) (*Meal, error)   //get a random meal
 	//add UpdateMeal here at some point
 }

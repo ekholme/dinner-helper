@@ -6,6 +6,7 @@ import (
 
 	dh "github.com/ekholme/dinner-helper"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 //an interface to take care of meal stuff
@@ -38,7 +39,6 @@ func (s *Server) registerMealRoutes() {
 	s.router.POST("/meal", s.mh.CreateMeal)
 
 	//getting a random meal
-	//placeholder for now
 	s.router.GET("/rand_meal", s.mh.GetRandMeal)
 }
 
@@ -52,12 +52,18 @@ func (mh mealHandler) CreateMeal(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
+
+	id := uuid.New().String()
+
+	meal.ID = id
 
 	err = mh.mealService.CreateMeal(ctx, meal)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{"status": "meal saved!"})
@@ -81,5 +87,26 @@ func (mh mealHandler) GetAllMeals(c *gin.Context) {
 }
 
 func (mh mealHandler) GetRandMeal(c *gin.Context) {
-	c.HTML(http.StatusOK, "oops", gin.H{})
+
+	ctx := context.Background()
+
+	_, err := mh.mealService.GetRandMeal(ctx)
+
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"message": err.Error()})
+
+		return
+	}
+
+	//RESUME HERE
+
+	// data := gin.H{
+	// 	"meal": m,
+	// }
+
+	//c.JSON(http.StatusOK, data)
+
+	c.JSON(http.StatusOK, gin.H{"msg": "success"})
+
+	//c.HTML(http.StatusOK, "oops", gin.H{})
 }

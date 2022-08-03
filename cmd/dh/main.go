@@ -17,23 +17,7 @@ func main() {
 	mh := srvr.NewMealHandler(ms)
 	s := srvr.NewServer(r, mh)
 
-	// type server struct {
-	// 	router *gin.Engine
-	// 	mh     srvr.MealHandler
-	// }
-
-	// var s = &server{
-	// 	router: r,
-	// 	mh:     mh,
-	// }
-
-	// s.router.GET("/meal", s.mh.GetAllMeals)
-
-	// r.GET("/meal", mh.GetAllMeals)
-	// r.POST("/meal", mh.CreateMeal)
-
-	// r.Run(":8080")
-
 	s.Run()
+
 
 }
