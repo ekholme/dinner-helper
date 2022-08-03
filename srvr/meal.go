@@ -90,7 +90,7 @@ func (mh mealHandler) GetRandMeal(c *gin.Context) {
 
 	ctx := context.Background()
 
-	_, err := mh.mealService.GetRandMeal(ctx)
+	m, err := mh.mealService.GetRandMeal(ctx)
 
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"message": err.Error()})
@@ -100,13 +100,13 @@ func (mh mealHandler) GetRandMeal(c *gin.Context) {
 
 	//RESUME HERE
 
-	// data := gin.H{
-	// 	"meal": m,
-	// }
+	data := gin.H{
+		"meal": m,
+	}
 
-	//c.JSON(http.StatusOK, data)
+	c.JSON(http.StatusOK, data)
 
-	c.JSON(http.StatusOK, gin.H{"msg": "success"})
+	//c.JSON(http.StatusOK, gin.H{"msg": "success"})
 
 	//c.HTML(http.StatusOK, "oops", gin.H{})
 }
